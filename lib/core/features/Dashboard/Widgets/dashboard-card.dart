@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../agent-screen/domain/agent_data_bloc.dart';
 
 class DashBoardCard extends StatelessWidget {
   const DashBoardCard({Key? key, required this.imageUrl, required this.cardName, required this.namedRoute}) : super(key: key);
@@ -10,6 +13,7 @@ class DashBoardCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
+        BlocProvider.of<AgentDataBloc>(context).add(FetchAgentData());
         Navigator.pushNamed(context, namedRoute);
       },
       child: Container(

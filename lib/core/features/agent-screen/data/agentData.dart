@@ -1,4 +1,7 @@
 
+
+import 'package:flutter/material.dart';
+
 class AgentData {
   int? status;
   List<Data>? data;
@@ -38,7 +41,7 @@ class Data {
   String? fullPortraitV2;
   String? killfeedPortrait;
   String? background;
-  List<String>? backgroundGradientColors;
+  List<Color>? backgroundGradientColors;
   String? assetPath;
   bool? isFullPortraitRightFacing;
   bool? isPlayableCharacter;
@@ -47,6 +50,7 @@ class Data {
   Role? role;
   List<Abilities>? abilities;
   VoiceLine? voiceLine;
+
 
   Data(
       {this.uuid,
@@ -69,7 +73,8 @@ class Data {
         this.isBaseContent,
         this.role,
         this.abilities,
-        this.voiceLine});
+        this.voiceLine,
+      });
 
   Data.fromJson(Map<String, dynamic> json) {
     uuid = json['uuid'];
@@ -84,7 +89,14 @@ class Data {
     fullPortraitV2 = json['fullPortraitV2'];
     killfeedPortrait = json['killfeedPortrait'];
     background = json['background'];
-    backgroundGradientColors = json['backgroundGradientColors'].cast<String>();
+    // backgroundGradientColors = json['backgroundGradientColors'].cast<String>();
+    if (json['backgroundGradientColors'] != null) {
+      backgroundGradientColors = <Color>[];
+      json['backgroundGradientColors'].forEach((v) {
+        String val ="0xff"+v;
+        backgroundGradientColors!.add(Color(int.parse(val)));
+      });
+    }
     assetPath = json['assetPath'];
     isFullPortraitRightFacing = json['isFullPortraitRightFacing'];
     isPlayableCharacter = json['isPlayableCharacter'];
